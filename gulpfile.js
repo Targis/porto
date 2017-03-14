@@ -35,7 +35,7 @@ gulp.task('browser-sync', function() {
 	});
 });
 
-gulp.task('sass', function() {
+gulp.task('sass1', function() {
 	return gulp.src('app/sass/**/*.sass')
 	.pipe(sass({
 		includePaths: bourbon.includePaths
@@ -43,6 +43,16 @@ gulp.task('sass', function() {
 	.pipe(rename({suffix: '.min', prefix : ''}))
 	.pipe(autoprefixer(['last 15 versions']))
 	.pipe(cleanCSS())
+	.pipe(gulp.dest('app/css'))
+	.pipe(browserSync.reload({stream: true}));
+});
+
+gulp.task('sass', function() {
+	return gulp.src('app/sass/**/*.sass')
+	.pipe(sass({
+		includePaths: bourbon.includePaths
+	}).on("error", notify.onError()))
+	.pipe(autoprefixer(['last 15 versions']))
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
 });
